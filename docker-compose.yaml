@@ -1,0 +1,20 @@
+version: '3'
+services:
+  zabbix:
+    image: zabbix/zabbix-appliance
+    container_name: zabbix
+    ports:
+      - "8000:80"
+      - "8443:443"
+      - "10051:10051"
+    networks:
+      - zabbix-docker-network
+    privileged: true
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./zabbix-config:/etc/zabbix/web/
+volumes:
+  mysql-data:
+    driver: local
+networks:
+  zabbix-docker-network:    
